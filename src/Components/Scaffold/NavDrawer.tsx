@@ -57,11 +57,12 @@ const NavDrawer = (props: Props) => {
           </Toolbar>
         </AppBar>
         <Drawer
+          disableEnforceFocus
           variant="temporary"
           open={true}
           sx={simpleStyles.drawer}
           PaperProps={{
-            sx: simpleStyles.drawer,
+            sx: simpleStyles.drawerPaper,
             elevation: 9,
           }}
         >
