@@ -1,20 +1,6 @@
-import {
-  MenuItem,
-  Select,
-  ListItemText,
-  SelectProps,
-  SelectChangeEvent,
-} from "@mui/material";
+import { ReactNode, useRef, useEffect, useState } from "react";
+import { Select, SelectChangeEvent } from "@mui/material";
 import { minWidth } from "../ContactForm";
-
-const skills = [
-  "Dribbling",
-  "Passing",
-  "Vission",
-  "Holdup",
-  "Scoring",
-  "Running",
-];
 
 export const BeatifulSelect = (props: {
   value: "" | string[] | undefined;
@@ -22,21 +8,37 @@ export const BeatifulSelect = (props: {
     event: SelectChangeEvent<string[]>,
     child: React.ReactNode
   ) => void;
+  children: ReactNode[];
 }) => {
+  const selectInputComponent = useRef<HTMLInputElement>(null);
+
+  const [position, setPosition] = useState(0);
+
+  useEffect(() => {
+    setPosition(
+      selectInputComponent.current
+        ? selectInputComponent.current.getBoundingClientRect().left + 20
+        : 0
+    );
+  }, [selectInputComponent]);
   return (
     <Select
+      ref={selectInputComponent}
       {...props}
       id="skill-select"
       renderValue={(select: string[]) => select.join(" , ")}
       sx={{ minWidth: minWidth, marginRight: 2 }}
+      multiple
+      MenuProps={{
+        PaperProps: {
+          sx: {
+            left: `${position}px !important`,
+            maxHeight: 180,
+          },
+        },
+      }}
     >
-      {skills.map((skillName) => {
-        return (
-          <MenuItem value={skillName} key={skillName}>
-            <ListItemText primary={skillName} />
-          </MenuItem>
-        );
-      })}
+      {props.children}
     </Select>
   );
 };

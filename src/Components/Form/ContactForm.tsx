@@ -1,34 +1,31 @@
 import React, { useState } from "react";
 import {
-  Autocomplete,
   FormControl,
   FormGroup,
   Paper,
-  Select,
-  TextField,
-  MenuItem,
-  ListItemText,
   Stack,
   Button,
-  FormLabel,
-  Radio,
-  RadioGroup,
-  FormControlLabel,
   SelectChangeEvent,
   Dialog,
   Alert,
   AlertTitle,
+  MenuItem,
+  Checkbox,
+  ListItemText,
 } from "@mui/material";
 
-import { DesktopDatePicker } from "@mui/x-date-pickers";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { FormValues, contactData } from "../../Data/ContactData";
 import { BeatifulTextField } from "./FormSubcomponent/BeatifulTextField";
 import { BeatifulAutocomplete } from "./FormSubcomponent/BeatifulAutocomplete";
 import { BeatifulSelect } from "./FormSubcomponent/BeatifulSelect";
+import { BeatifulDatePicker } from "./FormSubcomponent/BeatifulDatePicker";
+import { BeautifulRadios } from "./FormSubcomponent/BeautifulRadios";
 
 type Props = {};
+
+export const minWidth = 300;
+export const today = new Date();
+export const defaultPreference = "Playing";
 
 const skills = [
   "Dribbling",
@@ -37,10 +34,25 @@ const skills = [
   "Holdup",
   "Scoring",
   "Running",
+  "Saving",
 ];
-export const minWidth = 300;
-export const today = new Date();
-export const defaultPreference = "Playing";
+
+const paperInputStyle = {
+  "& .MuiOutlinedInput-root": {
+    "& > fieldset": {
+      border: "1px solid",
+      borderColor: "primary.main",
+    },
+    "&:hover": {
+      "& > fieldset": {
+        borderColor: "primary.light",
+      },
+    },
+  },
+  "& .MuiFormLabel-root": {
+    color: "primary.dark",
+  },
+};
 
 const ContactForm = (props: Props) => {
   const [alertOpen, setAlertOpen] = useState(false);
@@ -145,7 +157,7 @@ const ContactForm = (props: Props) => {
 
   return (
     <>
-      <Paper>
+      <Paper sx={paperInputStyle}>
         <form>
           <FormControl>
             <FormGroup row sx={{ padding: 2, justifyContent: "space-between" }}>
@@ -165,48 +177,29 @@ const ContactForm = (props: Props) => {
               <BeatifulSelect
                 value={formValues.skills || ""}
                 onChange={handleSelectChange}
-              />
+              >
+                {skills.map((skillName) => {
+                  return (
+                    <MenuItem value={skillName} key={skillName}>
+                      <Checkbox
+                        checked={formValues.skills?.includes(skillName)}
+                      />
+                      <ListItemText primary={skillName} />
+                    </MenuItem>
+                  );
+                })}
+              </BeatifulSelect>
 
-              <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <DesktopDatePicker
-                  label="Date"
-                  inputFormat="MM/DD/YYYY"
-                  renderInput={(params) => {
-                    return (
-                      <TextField {...params} sx={{ minWidth: minWidth }} />
-                    );
-                  }}
-                  value={formValues.startDate}
-                  onChange={handleDatePickerChange}
-                />
-              </LocalizationProvider>
+              <BeatifulDatePicker
+                value={formValues.startDate}
+                onChange={handleDatePickerChange}
+              />
             </FormGroup>
             <FormGroup row sx={{ padding: 2, justifyContent: "space-between" }}>
-              <FormGroup sx={{ minWidth: minWidth, marginRight: 2 }}>
-                <FormLabel component="legend">Work Preference</FormLabel>
-                <RadioGroup
-                  id="preference-type-radio"
-                  name="preference"
-                  value={formValues.preference}
-                  onChange={handleRadioChange}
-                >
-                  <FormControlLabel
-                    label={defaultPreference}
-                    value={defaultPreference}
-                    control={<Radio />}
-                  />
-                  <FormControlLabel
-                    label="Bench"
-                    value="Bench"
-                    control={<Radio />}
-                  />
-                  <FormControlLabel
-                    label="Injuries"
-                    value="Injuries"
-                    control={<Radio />}
-                  />
-                </RadioGroup>
-              </FormGroup>
+              <BeautifulRadios
+                preference={formValues.preference}
+                handleRadioChange={handleRadioChange}
+              />
               <Stack>
                 <Button onClick={handleSubmit}>Submit</Button>
                 <Button onClick={handleClearSubmit}>Clear</Button>
