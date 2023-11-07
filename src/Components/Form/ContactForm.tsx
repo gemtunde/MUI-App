@@ -12,6 +12,7 @@ import {
   MenuItem,
   Checkbox,
   ListItemText,
+  useTheme,
 } from "@mui/material";
 
 import { FormValues, contactData } from "../../Data/ContactData";
@@ -56,6 +57,9 @@ const paperInputStyle = {
 
 const ContactForm = (props: Props) => {
   const [alertOpen, setAlertOpen] = useState(false);
+
+  //theme
+  const theme = useTheme();
   //initial value
   const getDefaultFormValues = () => {
     return {
@@ -160,7 +164,12 @@ const ContactForm = (props: Props) => {
       <Paper sx={paperInputStyle}></Paper>
       <Paper
         //   adding additional styling, icase we have multiple components using the styling. here we spread the style object and add additional style
-        sx={{ ...paperInputStyle, margin: { xs: 1, sm: 2, color: "purple" } }}
+        sx={{
+          ...paperInputStyle,
+          margin: { xs: 1, sm: 2 },
+          zIndex: theme.zIndex.appBar + 1,
+          backgroundColor: "grid.dark",
+        }}
       >
         <form>
           <FormControl>
@@ -205,8 +214,12 @@ const ContactForm = (props: Props) => {
                 handleRadioChange={handleRadioChange}
               />
               <Stack>
-                <Button onClick={handleSubmit}>Submit</Button>
-                <Button onClick={handleClearSubmit}>Clear</Button>
+                <Button variant="contained" onClick={handleSubmit}>
+                  Submit
+                </Button>
+                <Button variant="beautiful" onClick={handleClearSubmit}>
+                  Clear
+                </Button>
               </Stack>
             </FormGroup>
           </FormControl>

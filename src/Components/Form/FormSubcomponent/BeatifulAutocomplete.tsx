@@ -45,12 +45,12 @@ export const BeatifulAutocomplete = (props: {
         sx: {
           height: 100,
           color: "primary.main",
-          "& li:nth-child(even)": { backgroundColor: "green" },
+          "& li:nth-of-type(even)": { backgroundColor: "green" },
         },
       }}
-      onChange={() => {
-        debugger;
-      }}
+      // onChange={() => {
+      //   debugger;
+      // }}
     />
   );
 };
