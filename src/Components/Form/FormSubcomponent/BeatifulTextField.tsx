@@ -12,6 +12,7 @@ export const BeatifulTextField = (props: TextFieldProps) => {
       sx={{
         minWidth: minWidth,
         marginRight: 2,
+        marginBottom: { xs: 1, sm: 2 },
         // "& .MuiInputBase-root": { height: 80 },
         "& .MuiOutlinedInput-root.Mui-focused": {
           "& > fieldset": {

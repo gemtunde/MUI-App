@@ -157,7 +157,11 @@ const ContactForm = (props: Props) => {
 
   return (
     <>
-      <Paper sx={paperInputStyle}>
+      <Paper sx={paperInputStyle}></Paper>
+      <Paper
+        //   adding additional styling, icase we have multiple components using the styling. here we spread the style object and add additional style
+        sx={{ ...paperInputStyle, margin: { xs: 1, sm: 2, color: "purple" } }}
+      >
         <form>
           <FormControl>
             <FormGroup row sx={{ padding: 2, justifyContent: "space-between" }}>

@@ -27,7 +27,11 @@ export const BeatifulSelect = (props: {
       {...props}
       id="skill-select"
       renderValue={(select: string[]) => select.join(" , ")}
-      sx={{ minWidth: minWidth, marginRight: 2 }}
+      sx={{
+        minWidth: minWidth,
+        marginRight: 2,
+        marginBottom: { xs: 1, sm: 2 },
+      }}
       multiple
       MenuProps={{
         PaperProps: {

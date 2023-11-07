@@ -6,7 +6,12 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 
 const popperSx = {
-  color: "red",
+  "& .MuiPaper-root": {
+    color: "red",
+  },
+  "&  [role-grid]": {
+    backgroundColor: "green",
+  },
 };
 export const BeatifulDatePicker = (props: {
   value: string | null | undefined;
