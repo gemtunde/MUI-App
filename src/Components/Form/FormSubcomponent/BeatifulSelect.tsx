@@ -30,7 +30,7 @@ export const BeatifulSelect = (props: {
       sx={{
         minWidth: minWidth,
         marginRight: 2,
-        marginBottom: { xs: 1, sm: 2 },
+        marginBottom: { xs: 2, md: 0 },
       }}
       multiple
       MenuProps={{

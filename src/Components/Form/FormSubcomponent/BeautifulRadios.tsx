@@ -16,7 +16,13 @@ export const BeautifulRadios = (props: {
   ) => void;
 }) => {
   return (
-    <FormGroup sx={{ minWidth: minWidth, marginRight: 2 }}>
+    <FormGroup
+      sx={{
+        minWidth: minWidth,
+        marginRight: 2,
+        marginBottom: { xs: 2, md: 0 },
+      }}
+    >
       <FormLabel component="legend">Work Preference</FormLabel>
       <RadioGroup
         id="preference-type-radio"
